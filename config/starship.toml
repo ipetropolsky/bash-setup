@@ -1,0 +1,16 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "$env_var$debian_chroot$ssh$user$hostname$directory$git_branch$git_commit$git_state$git_status$git_metrics$character"
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style)'
+
+[git_commit]
+commit_hash_length = 7
+only_detached = true
+
+[git_branch]
+format = ':[$branch(:$remote_branch)](bold green)'
+
+[git_status]
+deleted = '×'
