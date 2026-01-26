@@ -10,7 +10,8 @@ source $SCRIPT_DIR/features/window.sh
 source $SCRIPT_DIR/features/terminal-colors.sh
 
 # Простой промпт с расцветкой и веткой Git
-source $SCRIPT_DIR/features/colored-prompt.sh
+# Можно использовать вместо starship, выглядит так же
+#source $SCRIPT_DIR/features/colored-prompt.sh
 
 # Мощный настраиваемый промпт с контекстной информацией
 # https://starship.rs/guide/

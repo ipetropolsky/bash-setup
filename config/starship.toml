@@ -2,8 +2,13 @@
 
 format = "$env_var$debian_chroot$ssh$user$hostname$directory$git_branch$git_commit$git_state$git_status$git_metrics$character"
 
+[character]
+success_symbol = '[\$](bold white)'
+error_symbol = '[\$](bold red)'
+
 [directory]
-format = '[$path]($style)[$read_only]($read_only_style)'
+format = '[$path](bold blue)[$read_only]($read_only_style)'
+truncate_to_repo = false
 
 [git_commit]
 commit_hash_length = 7
@@ -13,4 +18,5 @@ only_detached = true
 format = ':[$branch(:$remote_branch)](bold green)'
 
 [git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
 deleted = '×'
