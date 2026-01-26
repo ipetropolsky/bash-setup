@@ -5,6 +5,11 @@
 
 ## Установка
 
+1) Если включаем Starship, устанавливаем его: https://starship.rs/guide/
+```bash
+curl -sS https://starship.rs/install.sh | sh
+```
+
 1) Выполняем `setup.sh` в `~/.bashrc`:
 ```bash
 source path/to/setup.sh
@@ -28,6 +33,18 @@ source ~/.bashrc
 
 В `setup.sh` отключаем лишнее или добавляем нужное.
 
+### Если включали Starship
+
+```bash
+# Выбираем пресет
+starship preset --help
+starship preset pastel-powerline > ~/.config/starship.toml
+starship preset gruvbox-rainbow > ~/.config/starship.toml
+starship preset catppuccin-powerline > ~/.config/starship.toml
+
+# Или возвращаем кастомный конфиг
+cat ./config/starship.toml > ~/.config/starship.toml
+```
 
 ## Продвинутая настройка
 

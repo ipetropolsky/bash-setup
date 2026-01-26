@@ -14,4 +14,4 @@ shopt -s histappend
 
 # Сразу записывать историю при каждой команде,
 # чтобы команды из разных терминалов не терялись
-PROMPT_COMMAND="$PROMPT_COMMAND;history -a"
+PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"

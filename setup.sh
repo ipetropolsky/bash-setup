@@ -14,7 +14,7 @@ source $SCRIPT_DIR/features/terminal-colors.sh
 #source $SCRIPT_DIR/features/colored-prompt.sh
 
 # Мощный настраиваемый промпт с контекстной информацией
-# https://starship.rs/guide/
+# Требует предварительной установки Starship: https://starship.rs/guide/
 source $SCRIPT_DIR/features/starship.sh
 
 # Автодополнение для npm-скриптов
