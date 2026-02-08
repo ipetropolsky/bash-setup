@@ -1,25 +1,44 @@
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+__SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# Тюнинг сохранения и размера истории консоли
-source $SCRIPT_DIR/features/history.sh
+if [[ ! -f "$__SCRIPT_DIR/.env" ]]; then
+  echo "Create .env file:"
+  echo "  cp $__SCRIPT_DIR/.env.example $__SCRIPT_DIR/.env"
+  echo "Then execute your .bashrc:"
+  echo "  source $HOME/.bashrc"
+  return 1
+fi
 
-# Что-то про размеры окна терминала
-source $SCRIPT_DIR/features/window.sh
+# Настройки
+source "$__SCRIPT_DIR/.env"
 
-# Цвета в терминале
-source $SCRIPT_DIR/features/terminal-colors.sh
+__BASH_COMPLETION_FILE="$__SCRIPT_DIR/$BASH_SETUP_COMPLETION_FILE"
 
-# Автодополнение для npm-скриптов
-# Как обновить: npm completion > ./features/npm-completion.sh
-source $SCRIPT_DIR/features/npm-completion.sh
+if [[ "$BASH_SETUP_TUNE_HISTORY" == 'true' ]]; then
+  source "$__SCRIPT_DIR/features/history.sh"
+fi
 
-# Простой промпт с расцветкой и веткой Git
-source $SCRIPT_DIR/features/colored-prompt.sh
+if [[ "$BASH_SETUP_TUNE_WINDOW" == 'true' ]]; then
+  source "$__SCRIPT_DIR/features/window.sh"
+fi
 
-# Мощный настраиваемый промпт с контекстной информацией
-# Используется вместо colored-prompt.sh
-#
-# Ставит минималистичный конфиг с выводом ветки Git и подсветкой кода ответа предыдущей команды
-# Требует предварительной установки Starship: https://starship.rs/guide/
-#
-#source $SCRIPT_DIR/features/starship.sh
+if [[ "$BASH_SETUP_USE_COLORS" == 'true' ]]; then
+  source "$__SCRIPT_DIR/features/terminal-colors.sh"
+fi
+
+if [[ "$BASH_SETUP_USE_PROMPT" == 'true' ]]; then
+  if [[ "$BASH_SETUP_USE_STARSHIP" == 'true' ]]; then
+    source "$__SCRIPT_DIR/features/starship.sh"
+  else
+    source "$__SCRIPT_DIR/features/colored-prompt.sh"
+  fi
+fi
+
+# Подключение автокомплита (см. setup-completion.sh)
+if [[ "$BASH_SETUP_USE_COMPLETION" == 'true' ]]; then
+  if [[ -f "$__BASH_COMPLETION_FILE" ]]; then
+    source "$__BASH_COMPLETION_FILE"
+  fi
+fi
+
+unset __SCRIPT_DIR
+unset __BASH_COMPLETION_FILE

@@ -1,1 +1,11 @@
-.idea
+# Переменные
+.env
+
+# Сгенерированный контент
+generated/*
+!generated/.gitkeep
+
+# Редакторы
+.idea/*
+.vscode/*
+out/

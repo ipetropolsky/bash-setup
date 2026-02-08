@@ -2,7 +2,7 @@
 [[ $- != *i* ]] && return
 
 # Если нет промпта, ничего не делаем
-[[ -z '${PS1-}' ]] && return
+[[ -z "${PS1-}" ]] && return
 
 # Если цвет не поддерживается, ничего не делаем
 command -v tput >/dev/null 2>&1 && tput setaf 1 >/dev/null 2>&1 || return
