@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Open the files given by `git diff [<ref>]` in IDEA
+open -a "IntelliJ IDEA.app" $(git diff --stat --name-only --relative --diff-filter=ACMR ${1:-HEAD} | sed "s|^|`pwd`/|")

@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import os, sys
+
+result = [os.path.realpath(filename) for filename in sys.argv[1:]]
+print(' '.join(result))

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Open the files in IDEA
+open -a "IntelliJ IDEA.app" $(realpath $@)

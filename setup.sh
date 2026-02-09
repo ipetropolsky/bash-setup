@@ -33,6 +33,16 @@ if [[ "$BASH_SETUP_USE_PROMPT" == 'true' ]]; then
   fi
 fi
 
+# Подключение алиасов
+if [[ "$BASH_SETUP_USE_ALIASES" == 'true' ]]; then
+  source "$__SCRIPT_DIR/features/aliases.sh"
+fi
+
+# Подключение исполняемых скриптов из папки bin
+if [[ "$BASH_SETUP_USE_BIN" == 'true' ]]; then
+  export PATH="$PATH:$__SCRIPT_DIR/bin"
+fi
+
 # Подключение автокомплита (см. setup-completion.sh)
 if [[ "$BASH_SETUP_USE_COMPLETION" == 'true' ]]; then
   if [[ -f "$__BASH_COMPLETION_FILE" ]]; then
