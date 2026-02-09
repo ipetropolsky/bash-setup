@@ -23,9 +23,17 @@ __BASH_COMPLETION_FILE="$__SCRIPT_DIR/$BASH_SETUP_COMPLETION_FILE"
 # Стираем всё что есть
 : > "$__BASH_COMPLETION_FILE"
 
-# Если автокомплит не включён, ничего не делаем
+# Если автокомплит не включён, дальше ничего не делаем
 if [[ "$BASH_SETUP_USE_COMPLETION" != 'true' ]]; then
   return 0
+fi
+
+# Базовый автокомплит (пакет bash-completion)
+if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+  printf '%s\n' \
+    "# Added $(date +"%Y-%m-%dT%H:%M:%S%z") by ${BASH_SOURCE[0]}" \
+    "source /usr/share/bash-completion/bash_completion" \
+    "" >> "$__BASH_COMPLETION_FILE"
 fi
 
 # Автокомплит для npm-скриптов
