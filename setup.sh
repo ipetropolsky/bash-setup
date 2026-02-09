@@ -12,10 +12,28 @@ fi
 source "$__SCRIPT_DIR/.env"
 
 # Установка в .bashrc
-printf '%s\n' \
-  "Add to your "$HOME/.bashrc":" \
-  "# Setup environment (added $(date +"%Y-%m-%dT%H:%M:%S%z"))" \
-  "source \"$__SCRIPT_DIR/.bashrc\""
+__BASHRC_LINE="source \"$__SCRIPT_DIR/.bashrc\""
+
+if [[ "$1" == "-y" ]]; then
+  # Автоматическая установка
+  if ! grep -qF "$__BASHRC_LINE" "$HOME/.bashrc" 2>/dev/null; then
+    printf '%s\n' \
+      "" \
+      "# Setup environment (added $(date +"%Y-%m-%dT%H:%M:%S%z"))" \
+      "$__BASHRC_LINE" >> "$HOME/.bashrc"
+    echo "Added to $HOME/.bashrc"
+  else
+    echo "Already in $HOME/.bashrc"
+  fi
+else
+  # Вывод инструкций
+  printf '%s\n' \
+    "Add to your "$HOME/.bashrc":" \
+    "# Setup environment (added $(date +"%Y-%m-%dT%H:%M:%S%z"))" \
+    "$__BASHRC_LINE"
+fi
+
+unset __BASHRC_LINE
 
 # Файл с автокомплитом
 __BASH_COMPLETION_FILE="$__SCRIPT_DIR/$BASH_SETUP_COMPLETION_FILE"
