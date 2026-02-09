@@ -11,42 +11,38 @@ fi
 # Настройки
 source "$__SCRIPT_DIR/.env"
 
+# Установка в .bashrc
+printf '%s\n' \
+  "Add to your "$HOME/.bashrc":" \
+  "# Setup environment (added $(date +"%Y-%m-%dT%H:%M:%S%z"))" \
+  "source \"$__SCRIPT_DIR/.bashrc\""
+
+# Файл с автокомплитом
 __BASH_COMPLETION_FILE="$__SCRIPT_DIR/$BASH_SETUP_COMPLETION_FILE"
 
-if [[ "$BASH_SETUP_TUNE_HISTORY" == 'true' ]]; then
-  source "$__SCRIPT_DIR/features/history.sh"
+# Стираем всё что есть
+: > "$__BASH_COMPLETION_FILE"
+
+# Если автокомплит не включён, ничего не делаем
+if [[ "$BASH_SETUP_USE_COMPLETION" != 'true' ]]; then
+  return 0
 fi
 
-if [[ "$BASH_SETUP_TUNE_WINDOW" == 'true' ]]; then
-  source "$__SCRIPT_DIR/features/window.sh"
+# Автокомплит для npm-скриптов
+if command -v npm >/dev/null 2>&1; then
+  printf '%s\n' \
+    "# Added $(date +"%Y-%m-%dT%H:%M:%S%z") by ${BASH_SOURCE[0]}" \
+    "$(npm completion)" \
+    "" >> "$__BASH_COMPLETION_FILE"
 fi
 
-if [[ "$BASH_SETUP_USE_COLORS" == 'true' ]]; then
-  source "$__SCRIPT_DIR/features/terminal-colors.sh"
-fi
-
-if [[ "$BASH_SETUP_USE_PROMPT" == 'true' ]]; then
-  if [[ "$BASH_SETUP_USE_STARSHIP" == 'true' ]]; then
-    source "$__SCRIPT_DIR/features/starship.sh"
-  else
-    source "$__SCRIPT_DIR/features/colored-prompt.sh"
-  fi
-fi
-
-# Подключение алиасов
-if [[ "$BASH_SETUP_USE_ALIASES" == 'true' ]]; then
-  source "$__SCRIPT_DIR/features/aliases.sh"
-fi
-
-# Подключение исполняемых скриптов из папки bin
-if [[ "$BASH_SETUP_USE_BIN" == 'true' ]]; then
-  export PATH="$PATH:$__SCRIPT_DIR/bin"
-fi
-
-# Подключение автокомплита (см. setup-completion.sh)
-if [[ "$BASH_SETUP_USE_COMPLETION" == 'true' ]]; then
-  if [[ -f "$__BASH_COMPLETION_FILE" ]]; then
-    source "$__BASH_COMPLETION_FILE"
+# Автокомплит для starship (если установлен)
+if [[ "$BASH_SETUP_USE_STARSHIP" == 'true' ]]; then
+  if command -v starship >/dev/null 2>&1; then
+    printf '%s\n' \
+      "# Added $(date +"%Y-%m-%dT%H:%M:%S%z") by ${BASH_SOURCE[0]}" \
+      "$(starship completions bash)" \
+      "" >> "$__BASH_COMPLETION_FILE"
   fi
 fi
 
