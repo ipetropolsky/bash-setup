@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = "$env_var$debian_chroot$ssh$container$user$hostname$directory$git_branch$git_commit$git_state$git_status$git_metrics$docker_context$character"
+format = "$env_var$debian_chroot$ssh$container$username$hostname$directory$git_branch$git_commit$git_state$git_status$git_metrics$docker_context$character"
 
 [character]
 success_symbol = '[\$](bold white)'
